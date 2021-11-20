@@ -1,37 +1,74 @@
 <template>
-    <svg 
-        version="1.1" 
-        xmlns="http://www.w3.org/2000/svg" 
-        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-        viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" 
-        xml:space="preserve">
-        <g>
-            <path class="st0" d="M0.4,249.9c0,137.8,111.7,249.6,249.6,249.6c137.8,0,249.6-111.7,249.6-249.6C499.5,112,387.8,0.3,250,0.3
-                C112.1,0.3,0.4,112,0.4,249.9z M38.1,249.9C38.1,132.9,133,38,250,38s211.8,94.8,211.8,211.8S367,461.7,250,461.7
-                S38.1,366.9,38.1,249.9z"/>
-        </g>
-        <path class="st0" d="M207.7,38c0,0,127.7,35.5,177.9,164.8c0,0,4.7,13.8-2.5,15.4c-7.2,1.7-21.7,3.6-21.7,3.6s10.5-7.4,6.9-16.8
-            c-3.6-9.4-63.9-132.4-223.6-156.7"/>
-        <path class="st0" d="M95.4,90.6c0,0,34.7-10.1,98.3,39.4c0,0,3-1.1,3-6.1c0-5,0.8-11.6,6.9-14l59.2,63.3c0,0-11-33.6-54.8-72.7
-            c0,0,48.7,22.3,69.4,60.8c20.6,38.5,25.9,49,58.6,58.9c0,0-28.9,5.5-52.6-5.8c0,0-22.3,11.6-50.1-1.7
-            c-27.8-13.2-117-81.8-215.8-13.8l46.3-95L95.4,90.6z"/>
-        <path class="st0" d="M380.4,231.5c0,0,35.2,77.4-21.8,133c0,0-8-46-81.8-101c0,0,11-2.2-1.1-8.8c-12.1-6.6-47.3-20.1-82.9-19.8
-            c-35.5,0.3-106.1,9.6-102.2,171.6l51.1,39c0,0-24.7-58.7-17.4-124.4c7.4-65.7,66.5-68.9,81.5-67c14.9,1.9,106,8.7,145.6,145.6
-            C351.4,399.7,454.1,329.5,380.4,231.5z"/>
-        <path class="st0" d="M349.5,445.5c0,0-105.6,24.1-175.5-76.2c0,0,25.2,73.3,100.6,103.6"/>
-        <path class="st0" d="M234.3,466.7c0,0-90.1-56.4-86.3-138.3c0,0-17.8,65.6,31.8,138.3"/>
-        <path class="st0" d="M25.1,287.4c0,0,32.8-46.3,77.1-48.7c0,0-55.4,21.2-60.3,96.4"/>
-        <path class="st0" d="M374.1,263.2c0,0-13.5-20.7-18.3-20.7c-4.8,0,5.8-11,5.8-11S377.9,247.3,374.1,263.2z"/>
-        <g>
-            <path class="st0" d="M1.3,249.9c0,137.8,111.7,249.6,249.6,249.6c137.8,0,249.6-111.7,249.6-249.6C500.4,112,388.7,0.3,250.9,0.3
-                C113,0.3,1.3,112,1.3,249.9z M39,249.9C39,132.9,133.9,38,250.9,38s211.8,94.8,211.8,211.8s-94.8,211.8-211.8,211.8
-                S39,366.9,39,249.9z"/>
-        </g>
-    </svg>
+  <svg
+    version="1.1"
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    width="35px"
+    height="35px"
+    viewBox="0 0 35 35"
+    enable-background="new 0 0 35 35"
+    xml:space="preserve"
+  >
+    <image
+      id="image0"
+      width="35"
+      height="35"
+      x="0"
+      y="0"
+      href="data:image/png;base64,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
+NiswMDowMAVCMAYAAAAASUVORK5CYII="
+    />
+  </svg>
 </template>
 
 <script>
-    export default {
-        props: ['model']
-    }
+export default {
+  props: ["model"],
+};
 </script>
