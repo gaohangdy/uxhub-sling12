@@ -1128,7 +1128,7 @@ class PerAdminImpl {
 
       updateWithForm('/admin/updateResource.json' + path + node.path, formData)
           // .then( (data) => this.populateNodesForBrowser(parentPath) )
-          .then(() => resolve())
+          .then(() => this.populatePageView(path).then(() => resolve()))
           .catch(error => {
             logger.error('Failed to save page: ' + error)
             reject('Unable to save change. ' + error)
