@@ -27,16 +27,16 @@
         <!--<relativePath>../../../../pom.xml</relativePath>-->
     <!--</parent>-->
 
-    <groupId>com.peregrine-cms</groupId>
-    <artifactId>peregrine-project-archetype</artifactId>
+    <groupId>com.tangram-ux</groupId>
+    <artifactId>tangram-project-archetype</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>maven-archetype</packaging>
 
-    <name>Peregrine CMS - Project Archetype</name>
+    <name>Tangram UX - Project Archetype</name>
 
-    <inceptionYear>2017</inceptionYear>
+    <inceptionYear>2019</inceptionYear>
     <organization>
-        <name>headwire inc.</name>
+        <name>tangram inc.</name>
     </organization>
 
     <properties>
