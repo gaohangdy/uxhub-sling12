@@ -80,7 +80,7 @@
             @validated="onValidated()"
             @model-updated="onModelUpdate">
         </vue-form-generator>
-        <div v-if="!nodeType === NodeType.FILE" class="explorer-confirm-dialog">
+        <div v-if="nodeType !== NodeType.FILE" class="explorer-confirm-dialog">
           <template v-if="edit">
             <button
                 class="btn btn-raised waves-effect waves-light right"
