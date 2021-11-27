@@ -2132,6 +2132,8 @@ public class AdminResourceHandlerService
             updateObjectList(child, list);
         } else if (first instanceof String) {
             updateObjectSingleList(childName, list, resource);
+        } else if (first instanceof Integer) {
+            updateObjectSingleListInteger(childName, list, resource);
         } else {
             throw new ManagementException(String.format(OBJECT_FIRST_ITEM_WITH_UNSUPPORTED_TYPE, first, (first == null ? "null" : first.getClass().getName())));
         }
@@ -2160,6 +2162,19 @@ public class AdminResourceHandlerService
         }
         ModifiableValueMap childProperties = getModifiableProperties(resource, false);
         childProperties.put(name, newSingleList.toArray(new String[newSingleList.size()]));
+    }
+
+    private void updateObjectSingleListInteger(String name, List incomingList, Resource resource) throws ManagementException {
+        List<Integer> newSingleList = new ArrayList<>();
+        for (Object item : incomingList) {
+            if (item instanceof Integer) {
+                newSingleList.add(((Integer) item));
+            } else {
+                throw new ManagementException(String.format(OBJECT_ITEM_WITH_UNSUPPORTED_TYPE, item, (item == null ? "null" : item.getClass().getName())));
+            }
+        }
+        ModifiableValueMap childProperties = getModifiableProperties(resource, false);
+        childProperties.put(name, newSingleList.toArray(new Integer[newSingleList.size()]));
     }
 
     private void updateObjectList(Resource parent, List listProperties) throws ManagementException {
