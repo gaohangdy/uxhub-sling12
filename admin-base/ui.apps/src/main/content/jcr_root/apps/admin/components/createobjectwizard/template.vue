@@ -151,6 +151,8 @@
                 return this.formmodel.objectPath === target
             },
             onComplete: function() {
+                if (!this.$refs.verifyTab.validate()) return
+                
                 let objectPath = this.formmodel.objectPath
                 objectPath = objectPath.split('/').slice(2).join('/')
                 $perAdminApp.stateAction('createObject', { parent: this.formmodel.path, name: this.formmodel.name, template: objectPath, data: this.formmodel, returnTo: this.model.returnTo })
