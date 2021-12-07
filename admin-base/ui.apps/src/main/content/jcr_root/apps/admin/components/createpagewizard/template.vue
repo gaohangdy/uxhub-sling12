@@ -34,7 +34,7 @@
                 <div class="form-group required">
                     <div class="row">
                         <div class="col s6">
-                            <div v-if="skeletonPages && skeletonPages.length > 0">
+                            <div v-if="skeletonPages && skeletonPages.length > 0" ref="testPanel">
                                 <label class="as-heading">Select a Skeleton-Page</label>
                                 <ul class="collection as-scrollable">
                                     <li class="collection-item"
@@ -67,14 +67,18 @@
                             <p>
                                 The area below shows a preview of the selected page type.
                             </p>
-                            <div class="iframe-container">
+                            <div class="iframe-container" ref="pageThumbnail">
                                 <iframe v-if="formmodel.skeletonPagePath"
-                                        v-bind:src="formmodel.skeletonPagePath + '.html'" data-per-mode="preview">
+                                        v-bind:src="formmodel.skeletonPagePath + '.html'" data-per-mode="preview" ref="iframeOne">
                                 </iframe>
                                 <iframe v-if="formmodel.templatePath"
                                         v-bind:src="formmodel.templatePath + '.html'" data-per-mode="preview">
                                 </iframe>
                             </div>
+                            <button type="button" class="wizard-btn outline" @click="onThumbnail()">
+                                Capture
+                            </button> 
+                            <img v-if="thumbnailData" :src="thumbnailData" />                         
                         </div>
                     </div>
                 </div>
@@ -110,6 +114,11 @@
 <script>
     import NodeNameValidation from '../../../../../../js/mixins/NodeNameValidation'
 
+    // /* ES6 */
+    // import * as htmlToImage from 'html-to-image';
+    // import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+    import html2canvas from 'html2canvas';
+
     export default {
         props: ['model'],
         data() {
@@ -117,7 +126,8 @@
                 formErrors: {
                     unselectedTemplateError: false
                 },
-                isLastStep: false
+                isLastStep: false,
+                thumbnailData: null
             }
         },
         created() {
@@ -219,6 +229,37 @@
                     this.isLastStep = true
                 }
                 return isValid
+            },
+            onThumbnail() {
+                let imgBase64 = null
+                var iframeHtml = this.$refs.iframeOne.contentWindow
+                const iframeBody = iframeHtml.document.getElementsByTagName('body')[0]
+                const iframeScrollY = iframeHtml.document.documentElements.scrollTop
+                const iframeScrollX = iframeHtml.document.documentElements.scrollLeft
+                html2canvas(iframeBody, {
+                    allowTaint: true,
+                    useCORS: true,
+                    width: 812,
+                    height: 661,
+                    x: iframeScrollX,
+                    y: iframeScrollY
+                }).then(canvas => {
+                    imgBase64 = cavas.toDataURL('image/png')
+                    if (imgBase64) {
+                        this.thumbnailData = imgBase64
+                    } else {
+                        console.log('Capture failed.')
+                    }
+                })
+                // if (!this.$refs.iframeOne) return;
+                // toPng(this.$refs.iframeOne.contentDocument.body, { cacheBust: true, })
+                // .then((dataUrl) => {
+                //     this.thumbnailData = dataUrl;
+                // })
+                // .catch((err) => {
+                //     console.log(err)
+                // })
+
             }
         }
     }
