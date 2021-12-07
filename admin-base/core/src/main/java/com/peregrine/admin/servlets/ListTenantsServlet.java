@@ -62,6 +62,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import javax.jcr.Session;
 import javax.servlet.Servlet;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -90,6 +92,12 @@ public class ListTenantsServlet extends AbstractBaseServlet {
     private static final String SITE_ROOT_MISSING = "The site root '" + PAGES_ROOT + "' did not resolve to a resource.";
     private static final String TENANTS = "tenants";
     private static final String ROOTS = "roots";
+
+    private static final String DESCRIPTION = "description";
+    private static final String SITE_IMAGE = "siteimage";
+    private static final String DEFAULT_SITE_IMAGE_PATH = "/content/themecleanflex/assets/samples/anchored.jpg";
+
+    private static final String OWNER = "owner";
 
     private static final Map<String, String> ROOT_MAP = ImmutableSortedMap.<String, String>naturalOrder()
         .put("apps", APPS_ROOT + SLASH + TENANT)
@@ -133,10 +141,18 @@ public class ListTenantsServlet extends AbstractBaseServlet {
             answer.writeAttribute(TITLE, tenant.getValueMap().get(JCR_TITLE, String.class));
             answer.writeAttribute(TEMPLATE, tenant.getValueMap().get(TEMPLATE, Boolean.class));
             answer.writeAttribute(INTERNAL, tenant.getValueMap().get(INTERNAL, Boolean.class));
+            
+            answer.writeAttribute(DESCRIPTION, tenant.getValueMap().get(DESCRIPTION, String.class));
+            answer.writeAttribute(SITE_IMAGE, tenant.getValueMap().get(SITE_IMAGE, DEFAULT_SITE_IMAGE_PATH));
+
+            boolean isOwner = request.getResourceResolver().adaptTo(Session.class).getUserID().equals(tenant.getValueMap().get(OWNER, String.class));
+            answer.writeAttribute(OWNER, isOwner);
+            
             answer.writeObject(ROOTS);
             for (String key : ROOT_MAP.keySet()) {
                 answer.writeAttribute(key, ROOT_MAP.get(key).replace(TENANT, tenant.getName()));
             }
+
             answer.writeClose();
             answer.writeClose();
         }

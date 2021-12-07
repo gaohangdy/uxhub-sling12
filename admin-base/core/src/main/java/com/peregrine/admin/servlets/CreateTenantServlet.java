@@ -125,6 +125,8 @@ public class CreateTenantServlet extends AbstractBaseServlet {
     private static final String FAILED_TO_GET_SERVICE_RESOLVER = "Unable to get Peregrine Service Resolver";
     private static final String FAILED_TO_CREATE_TENANT_SECURITY = "Unable to create Tenant Permissions";
     private static final String DISABLE_USER_REASON = "Need to set a password first";
+    
+    private static final String SITE_OWNER = "owner";
 
     @Reference
     AdminResourceHandler resourceManagement;
@@ -153,6 +155,8 @@ public class CreateTenantServlet extends AbstractBaseServlet {
             if(isNotEmpty(title)) {
                 ModifiableValueMap properties = site.adaptTo(ModifiableValueMap.class);
                 properties.put(JCR_TITLE, title);
+                // ----- UXHub Customize -----
+                properties.put(SITE_OWNER, request.getResourceResolver().adaptTo(Session.class).getUserID());
             }
             // Get User Password
             String userPwd = request.getParameter(TENANT_USER_PWD);

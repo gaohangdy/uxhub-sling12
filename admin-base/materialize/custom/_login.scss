@@ -47,14 +47,25 @@
     align-items: center;
     flex-direction: column;
 
+    // ----- UXHub -----
+    background-image: url('/etc/felibs/admin/login-background.png');
+    background-size: cover;
+    background-position: center;
+
     .login-wrapper {
-      width: 85%;
-      min-width: 600px;
-      max-width: 1500px;
+      // width: 85%;
+      // min-width: 600px;
+      // max-width: 1500px;
       border-radius: 15px;
-      background-color: #ffffff;
-      height: 650px;
+      // background-color: #ffffff;
+      // height: 650px;
       display: flex;
+      // ----- UXHub -----
+      // width: 100%;
+      width: 412px;
+      margin-left: -50%;
+      height: 417px;
+      background-color: rgba(255,255,255,0.8);
     }
 
     .login-image {
@@ -66,10 +77,12 @@
     }
 
     .login-form-wrapper {
-      width: 45%;
+      // width: 45%;
       display: flex;
       justify-content: center;
       align-items: center;
+      // ----- UXHub -----
+      width: 100%;      
     }
 
     #loginform {
@@ -190,7 +203,7 @@
 
       #login {
         color: #ffffff;
-        background-color: var(--pcms-orange);
+        background-color: var(--pcms-primary-color);
         width: 100%;
         padding: 12px 20px;
         border: none;
@@ -201,7 +214,7 @@
         transition: background-color .35s ease-in;
 
         &:hover {
-          background-color: var(--pcms-orange-hover);
+          background-color: var(--pcms-primary-color-hover);
         }
       }
 
@@ -222,9 +235,14 @@
     }
 
     .legal {
-      padding: 50px;
+      // padding: 50px;
       text-align: center;
       width: 100%;
+
+      // ----- UXHub -----
+      padding: 15px;
+      bottom: 0;
+      position: absolute;
 
       a {
         color: var(--pcms-gray);

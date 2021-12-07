@@ -36,8 +36,29 @@
     loaders="[populateTenants:/"
     jcr:description="admin base welcome page">
 
-    <nav jcr:primaryType="nt:unstructured"
-      sling:resourceType="admin/components/nav" hideTenants="true"/>
+    <nav
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="admin/components/nav"
+    hideTenants="true">
+      <subnav
+          jcr:primaryType="nt:unstructured"
+          sling:resourceType="admin/components/subnav">
+          <extensions
+              jcr:primaryType="nt:unstructured"
+              sling:resourceType="admin/components/extensions"
+              id="admin.pages.subnav"/>
+          <createSite
+              jcr:primaryType="nt:unstructured"
+              sling:resourceType="admin/components/action"
+              classes="waves-effect waves-light btn blue"
+              command="selectPath"
+              icon="add"
+              target="/content/admin/pages/pages/createtenant"
+              title="Create"
+              type="\0">
+          </createSite>
+      </subnav>
+    </nav>
 
     <content jcr:primaryType="nt:unstructured"
       sling:resourceType="pagerendervue/structure/container">
@@ -46,11 +67,11 @@
         sling:resourceType="admin/components/row">
 
         <col2 jcr:primaryType="nt:unstructured"
-          sling:resourceType="admin/components/col" classes="col s12 m12 l12 xl7">
+          sling:resourceType="admin/components/col" classes="col s12 m12 l12 xl12">
 
           <text1 jcr:primaryType="nt:unstructured"
             sling:resourceType="pagerendervue/components/base"
-            text="&lt;h2&gt;your websites&lt;/h2&gt;&lt;p&gt;&lt;/p&gt;">
+            text="&lt;h4&gt;Sites&lt;/h4&gt;&lt;p&gt;&lt;/p&gt;">
           </text1>
 
           <!-- <addSite jcr:primaryType="nt:unstructured"
@@ -67,7 +88,7 @@
 
         </col2>
 
-        <col3 jcr:primaryType="nt:unstructured"
+        <!-- <col3 jcr:primaryType="nt:unstructured"
           sling:resourceType="admin/components/col" classes="col s12 m12 l12 xl5">
 
           <text1 jcr:primaryType="nt:unstructured"
@@ -120,7 +141,7 @@
             ">
           </text3>
 
-        </col3>
+        </col3> -->
 
       </row>
 

@@ -210,3 +210,13 @@
         color: #37474f !important;
     }
 </style>
+
+<style scoped>
+    .btn-floating {
+        background-color: rgba(255,255,255,0.8);
+    }
+
+    .btn-floating i {
+        color: #6d6d6d;
+    }
+</style>

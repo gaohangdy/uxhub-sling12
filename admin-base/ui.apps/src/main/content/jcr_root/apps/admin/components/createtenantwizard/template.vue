@@ -155,6 +155,13 @@
                                 validator: [this.nameAvailable, this.validSiteName]
                             },
                             {
+                                type: "material-textarea",
+                                inputType: "text",
+                                model: "description",
+                                label: "Description",
+                                hint: "Enter a description for this site."
+                            },                       
+                            {
                                 type: "input",
                                 inputType: "text",
                                 label: "Tenant User Password",
@@ -164,7 +171,13 @@
                                 required: false,
                                 onChanged: (model, newVal, oldVal, field) => {
                                 }
-                            }
+                            },
+                            {
+                                type: "pathbrowser",
+                                browserRoot: "/content/themecleanflex/assets",
+                                label: "Site Image",
+                                model: "siteimage"
+                            }                            
                         ]
                     }
                 }
@@ -288,4 +301,14 @@
     .feature-unavailable .card{
         max-width: 700px;
     }
+</style>
+<style>
+    .wizard-tab-content .field-pathbrowser .wrap {
+        text-align: center;
+    }
+
+    .wizard-tab-content .field-pathbrowser .wrap img {
+        max-height: 200px;
+        margin: 10px;
+    }    
 </style>

@@ -1,4 +1,7 @@
 nav {
+  // ----- UXHub Customize -----
+  line-height: 52px;
+
   ul a {
     display: inline-block;
     height: calc(100% - 2px);
@@ -11,6 +14,9 @@ nav {
   .nav-wrapper {
     display: flex;
     justify-content: center;
+    // ----- UXHub Customize -----
+    background-color: #1e1e1e !important;
+    min-height: 52px;
 
     a {
       display: block;
@@ -42,7 +48,8 @@ nav {
       display: flex;
       align-items: center;
       margin-right: auto;
-      padding-top: 3px;
+      // ----- UXHub Customize -----
+      // padding-top: 3px;
 
       .current-tenant-name {
         height: 100%;
@@ -87,6 +94,9 @@ nav {
       align-items: center;
       margin-left: auto;
 
+      // ----- UXHub Customize -----
+      margin-right: 1rem;
+
       .icon-link {
         padding: 0 .5rem;
       }
@@ -114,9 +124,9 @@ nav {
         .user-circle {
           background-color: var(--pcms-orange);
           border-radius: 100%;
-          width: 40px;
+          width: 25px;
           display: flex;
-          height: 40px;
+          height: 25px;
           align-items: center;
           justify-content: center;
           color: #ffffff;
@@ -229,9 +239,13 @@ nav {
     .brand-logo {
       font-weight: 300;
       width: 48px;
-      height: 48px;
+      // ----- UXHub Customize -----
+      // height: 48px;
       fill: var(--pcms-orange);
-      margin-left: .5rem;
+      // ----- UXHub Customize -----
+      // margin-left: .5rem;
+      margin-left: 1rem;
+      display: flex;
 
       &:hover {
         svg {

@@ -22,78 +22,269 @@
   -->
 <template>
 
-    <div class="row" style="border: solid silver 2px; box-shadow: 3px 3px 4px lightgray; margin-right: 10px;">
-        <div class="tenant-tabs">
-            <button v-for="(item, index) in tab.items"
-                 class="tab"
-                 :key="item"
-                 :class="{active: tab.active === index}"
-                 @click="onTabClick(index)">
-                {{ item }}
-            </button>
-        </div>
-        <div class="tenant-collection">
-            <template v-if="children && children.length > 0">
-                <div class="col s12 m6 l6 icon-action m-left-inherit" v-for="child in children" v-bind:key="child.name">
-                    <div class="card blue-grey darken-3">
-                        <div class="card-content white-text tenant-link" @click="onCardContentClick(child.name)">
-                            <span class="card-title">{{child.title ? child.title : child.name}}</span>
-                            <p>{{child.description}}</p>
-                        </div>
-                        <div class="card-action">
-                            <admin-components-action
-                                v-bind:model="{
-                                    target: { 
-                                        path: '/content/admin/pages/welcome.html/pages:/content/' + child.name, 
-                                        name: child.name 
-                                    },
-                                    command: 'selectTenant',
-                                    tooltipTitle: `${$i18n('edit')} '${child.title || child.name}'`
-                                }">
-                                <i class="material-icons">edit</i>
-                            </admin-components-action>
-
-                            <admin-components-action
-                                v-bind:model="{
-                                    target: { 
-                                        path: '/content/admin/pages/tenants/configure.html/path:/content/' + child.name,
-                                        name: child.name 
-                                    },
-                                    command: 'configureTenant',
-                                    tooltipTitle: `${$i18n('configure')} '${child.title || child.name}'`
-                                }">
-                                <i class="material-icons">settings</i>
-                            </admin-components-action>
-
-
-                            <admin-components-action
-                                v-bind:model="{
-                                    target: { 
-                                        path: '/content/admin/pages/index.html',
-                                        name: child.name 
-                                    },
-                                    command: 'deleteTenant',
-                                    tooltipTitle: `${$i18n('delete')} '${child.title || child.name}'`
-                                }">
-                                <i class="material-icons">delete</i>
-                            </admin-components-action>
-                        </div>
-                    </div>
-                </div>
-            </template>
-            <template v-else>
-                <div class="no-websites-found">
-                    <p>No websites found</p>
-                    Start by creating a new one!
-                </div>
-            </template>
-        </div>
-        <div v-if="tab.active === 0" class="tenant-actions">
-            <div class="create-tenant action" @click="onCreateNewSiteClick">
-                <i class="material-icons">note_add</i>
-                Create new website
+    <!-- <div class="row" style="border: solid silver 2px; box-shadow: 3px 3px 4px lightgray; margin-right: 10px;"> -->
+    <div class="row">
+        <template v-if="!this.$root.$data.state.userPreferences.isTenant">
+            <div class="tenant-tabs">
+                <button v-for="(item, index) in tab.items"
+                    class="tab"
+                    :key="item"
+                    :class="{active: tab.active === index}"
+                    @click="onTabClick(index)">
+                    {{ item }}
+                </button>
             </div>
-        </div>
+            <div class="tenant-collection">
+                <template v-if="children && children.length > 0">
+                    <div class="col s6 m4 l3 icon-action m-left-inherit" v-for="child in children" v-bind:key="child.name">
+                        <div class="card tenant-link" @click="onCardContentClick(child.name)">
+                            <div class="card-image">
+                                <div class="card-image-animation" v-bind:style="{backgroundImage: `url('${child.siteimage}')`}" />
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title">{{child.title ? child.title : child.name}}</span>
+                                <p v-if="child.description">{{child.description}}</p>
+                            </div>
+                            <div class="card-action">
+                                <admin-components-action
+                                    v-bind:model="{
+                                        target: { 
+                                            path: '/content/admin/pages/welcome.html/pages:/content/' + child.name, 
+                                            name: child.name 
+                                        },
+                                        command: 'selectTenant',
+                                        tooltipTitle: `${$i18n('edit')} '${child.title || child.name}'`,
+                                        type: 'icon'
+                                    }">
+                                    <i class="material-icons">edit</i>
+                                </admin-components-action>
+
+                                <admin-components-action
+                                    v-bind:model="{
+                                        target: { 
+                                            path: '/content/admin/pages/tenants/configure.html/path:/content/' + child.name,
+                                            name: child.name 
+                                        },
+                                        command: 'configureTenant',
+                                        tooltipTitle: `${$i18n('configure')} '${child.title || child.name}'`,
+                                        type: 'icon'
+                                    }">
+                                    <i class="material-icons">settings</i>
+                                </admin-components-action>
+
+
+                                <admin-components-action
+                                    v-bind:model="{
+                                        target: { 
+                                            path: '/content/admin/pages/index.html',
+                                            name: child.name 
+                                        },
+                                        command: 'deleteTenant',
+                                        tooltipTitle: `${$i18n('delete')} '${child.title || child.name}'`,
+                                        type: 'icon'
+                                    }">
+                                    <i class="material-icons">delete</i>
+                                </admin-components-action>
+                            </div>
+                        </div>                    
+                        <!-- <div class="card blue-grey darken-3">
+                            <div class="card-content white-text tenant-link" @click="onCardContentClick(child.name)">
+                                <span class="card-title">{{child.title ? child.title : child.name}}</span>
+                                <p>{{child.description}}</p>
+                            </div>
+                            <div class="card-action">
+                                <admin-components-action
+                                    v-bind:model="{
+                                        target: { 
+                                            path: '/content/admin/pages/welcome.html/pages:/content/' + child.name, 
+                                            name: child.name 
+                                        },
+                                        command: 'selectTenant',
+                                        tooltipTitle: `${$i18n('edit')} '${child.title || child.name}'`
+                                    }">
+                                    <i class="material-icons">edit</i>
+                                </admin-components-action>
+
+                                <admin-components-action
+                                    v-bind:model="{
+                                        target: { 
+                                            path: '/content/admin/pages/tenants/configure.html/path:/content/' + child.name,
+                                            name: child.name 
+                                        },
+                                        command: 'configureTenant',
+                                        tooltipTitle: `${$i18n('configure')} '${child.title || child.name}'`
+                                    }">
+                                    <i class="material-icons">settings</i>
+                                </admin-components-action>
+
+
+                                <admin-components-action
+                                    v-bind:model="{
+                                        target: { 
+                                            path: '/content/admin/pages/index.html',
+                                            name: child.name 
+                                        },
+                                        command: 'deleteTenant',
+                                        tooltipTitle: `${$i18n('delete')} '${child.title || child.name}'`
+                                    }">
+                                    <i class="material-icons">delete</i>
+                                </admin-components-action>
+                            </div>
+                        </div> -->
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="no-websites-found">
+                        <p>No websites found</p>
+                        Star
+  components: { template },
+  components: { template },t by creating a new one!
+                    </div>
+                </template>
+            </div>
+            <!-- <div v-if="tab.active === 0" class="tenant-actions">
+                <div class="create-tenant action" @click="onCreateNewSiteClick">
+                    <i class="material-icons">note_add</i>
+                    Create new website
+                </div>
+            </div> -->
+        </template>
+        <template v-else>
+            <h5 class="sub-title"><span>Owner</span></h5>
+            <div class="tenant-collection">
+                <template v-if="ownerChildren && ownerChildren.length > 0">
+                    <template v-for="child in ownerChildren">
+                        <template v-if="child.owner">
+                            <div class="col s6 m4 l3 icon-action m-left-inherit" v-bind:key="child.name">
+                                <div class="card tenant-link" @click="onCardContentClick(child.name)">
+                                    <div class="card-image">
+                                        <div class="card-image-animation" v-bind:style="{backgroundImage: `url('${child.siteimage}')`}" />
+                                    </div>
+                                    <div class="card-content">
+                                        <span class="card-title">{{child.title ? child.title : child.name}}</span>
+                                        <p v-if="child.description">{{child.description}}</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <admin-components-action
+                                            v-bind:model="{
+                                                target: { 
+                                                    path: '/content/admin/pages/welcome.html/pages:/content/' + child.name, 
+                                                    name: child.name 
+                                                },
+                                                command: 'selectTenant',
+                                                tooltipTitle: `${$i18n('edit')} '${child.title || child.name}'`,
+                                                type: 'icon'
+                                            }">
+                                            <i class="material-icons">edit</i>
+                                        </admin-components-action>
+
+                                        <admin-components-action
+                                            v-bind:model="{
+                                                target: { 
+                                                    path: '/content/admin/pages/tenants/configure.html/path:/content/' + child.name,
+                                                    name: child.name 
+                                                },
+                                                command: 'configureTenant',
+                                                tooltipTitle: `${$i18n('configure')} '${child.title || child.name}'`,
+                                                type: 'icon'
+                                            }">
+                                            <i class="material-icons">settings</i>
+                                        </admin-components-action>
+
+
+                                        <admin-components-action
+                                            v-bind:model="{
+                                                target: { 
+                                                    path: '/content/admin/pages/index.html',
+                                                    name: child.name 
+                                                },
+                                                command: 'deleteTenant',
+                                                tooltipTitle: `${$i18n('delete')} '${child.title || child.name}'`,
+                                                type: 'icon'
+                                            }">
+                                            <i class="material-icons">delete</i>
+                                        </admin-components-action>
+                                    </div>
+                                </div>                    
+                            </div>
+                        </template>
+                    </template>
+                </template>
+                <template v-else>
+                    <div class="no-websites-found">
+                        <p>No websites found</p>
+                        Start by creating a new one!
+                    </div>
+                </template>
+            </div>
+            <h5 class="sub-title"><span>Contributor</span></h5>
+            <div class="tenant-collection">
+                <template v-if="contributorChildren && contributorChildren.length > 0">
+                    <template v-for="child in contributorChildren">
+                        <template v-if="!child.owner">
+                            <div class="col s6 m4 l3 icon-action m-left-inherit" v-bind:key="child.name">
+                                <div class="card tenant-link" @click="onCardContentClick(child.name)">
+                                    <div class="card-image">
+                                        <div class="card-image-animation" v-bind:style="{backgroundImage: `url('${child.siteimage}')`}" />
+                                    </div>
+                                    <div class="card-content">
+                                        <span class="card-title">{{child.title ? child.title : child.name}}</span>
+                                        <p v-if="child.description">{{child.description}}</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <admin-components-action
+                                            v-bind:model="{
+                                                target: { 
+                                                    path: '/content/admin/pages/welcome.html/pages:/content/' + child.name, 
+                                                    name: child.name 
+                                                },
+                                                command: 'selectTenant',
+                                                tooltipTitle: `${$i18n('edit')} '${child.title || child.name}'`,
+                                                type: 'icon'
+                                            }">
+                                            <i class="material-icons">edit</i>
+                                        </admin-components-action>
+
+                                        <admin-components-action
+                                            v-bind:model="{
+                                                target: { 
+                                                    path: '/content/admin/pages/tenants/configure.html/path:/content/' + child.name,
+                                                    name: child.name 
+                                                },
+                                                command: 'configureTenant',
+                                                tooltipTitle: `${$i18n('configure')} '${child.title || child.name}'`,
+                                                type: 'icon'
+                                            }">
+                                            <i class="material-icons">settings</i>
+                                        </admin-components-action>
+
+
+                                        <admin-components-action
+                                            v-bind:model="{
+                                                target: { 
+                                                    path: '/content/admin/pages/index.html',
+                                                    name: child.name 
+                                                },
+                                                command: 'deleteTenant',
+                                                tooltipTitle: `${$i18n('delete')} '${child.title || child.name}'`,
+                                                type: 'icon'
+                                            }">
+                                            <i class="material-icons">delete</i>
+                                        </admin-components-action>
+                                    </div>
+                                </div>                    
+                            </div>
+                        </template>
+                    </template>
+                </template>
+                <template v-else>
+                    <div class="no-websites-found">
+                        <p>No websites found</p>
+                        Start by creating a new one!
+                    </div>
+                </template>
+            </div>
+        </template>
     </div>
 
 </template>
@@ -117,15 +308,33 @@
             children: function() {
                 const tenants = $perAdminApp.getNodeFrom($perAdminApp.getView(), '/admin/tenants')
                 if(tenants) {
-                    if (this.tab.active === 1) {
-                        return tenants.filter( (t) => t.template)
-                    } else if (this.tab.active === 2) {
-                        return tenants.filter( (t) => t.internal );
-                    } else {
+                    if (this.$root.$data.state.userPreferences.isTenant) {
                         return tenants.filter( (t) => !t.template && !t.internal)
+                    } else {
+                        if (this.tab.active === 1) {
+                            return tenants.filter( (t) => t.template)
+                        } else if (this.tab.active === 2) {
+                            return tenants.filter( (t) => t.internal );
+                        } else {
+                            return tenants.filter( (t) => !t.template && !t.internal)
+                        }
                     }
                 }
                 return [];
+            },
+            ownerChildren: function() {
+                const tenants = $perAdminApp.getNodeFrom($perAdminApp.getView(), '/admin/tenants')
+                if(tenants) {
+                    return tenants.filter( (t) => !t.template && !t.internal && t.owner)
+                }
+                return [];                
+            },
+            contributorChildren: function() {
+                const tenants = $perAdminApp.getNodeFrom($perAdminApp.getView(), '/admin/tenants')
+                if(tenants) {
+                    return tenants.filter( (t) => !t.template && !t.internal && !t.owner)
+                }
+                return [];                
             }
         },
         created() {
@@ -173,6 +382,19 @@
     .card-action {
         display: flex;
         justify-content: space-between;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 200px;
+        background-color: unset;
+
+        -webkit-transition: all 1.5s;  
+        -moz-transition: all 1.5s;  
+        -ms-transition: all 1.5s;  
+        -o-transition: all 1.5s;  
+        transition: all 1.5s;  
+        opacity: 0;
     }
 
     .tenant-tabs,
@@ -182,11 +404,11 @@
         justify-content: flex-start;
         align-items: center;
         height: 50px;
-        background-color: #eeeeee;
+        /* background-color: #eeeeee; */
     }
 
     .tenant-tabs {
-        border-bottom: 2px solid silver;
+        border-bottom: 1px solid silver;
     }
 
     .tenant-tabs .tab {
@@ -243,7 +465,8 @@
     }
 
     .tenant-collection .card .card-content {
-        min-height: 187px;
+        min-height: 64px;
+        padding: 12px;
     }
 
     .tenant-collection .no-websites-found {
@@ -263,5 +486,46 @@
 
     .m-left-inherit {
         margin-left: inherit !important;
+    }
+
+    .card-image {
+        height: 200px;     
+        overflow: hidden;   
+    }
+
+    .card.tenant-link:hover .card-image-animation {
+        transform: scale(1.1)
+    }    
+
+    .card.tenant-link .card-image-animation {
+        width: auto;
+        min-height: 200px;
+        transition: transform .5s;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }  
+    
+    .card.tenant-link:hover .card-action {
+        -webkit-transition: all 1s;  
+        -moz-transition: all 1s;  
+        -ms-transition: all 1s;  
+        -o-transition: all 1s;  
+        transition: all 1s;  
+        opacity: 1;
+    }   
+    
+    .sub-title {
+        margin: 36px 0 18px;
+        border-left: 4px solid #b60081;
+        font-weight: 700;
+    }
+
+    .sub-title span {
+        padding: 3px 0 0 10px;
+        display: block;
+        border-left: 2px solid #e9b3d9;        
     }
 </style>

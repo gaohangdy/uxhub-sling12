@@ -24,7 +24,8 @@
   -->
 <template>
   <nav v-bind:data-per-path="model.path" v-bind:class="isExtended ? 'nav-extended' : ''">
-    <div class="nav-wrapper blue-grey darken-3">
+    <!-- <div class="nav-wrapper blue-grey darken-3"> -->
+    <div class="nav-wrapper">
       <div class="nav-left">
         <div class="brand-logo" @click="$refs.notificationsModal.open()">
           <admin-components-logo/>
@@ -87,12 +88,49 @@
         </admin-components-materializemodal>
         <admin-components-materializedropdown
             tag="li"
+            class="nav-link notifications-link"
+            :below-origin="true"
+            :items="userDdItems">
+          <template>
+            <i class="material-icons large">notifications</i>
+          </template>
+          <template slot="header">
+            <div class="user-circle big" :title="$i18n('profile picture')">
+              <i class="material-icons">face</i>
+            </div>
+            <div class="user-info">
+              <div class="row logged-in-as">
+                <p class="bold">Logged in as:</p>
+                <icon
+                    icon="clone"
+                    lib="font-awesome"
+                    class="copy-username"
+                    title="Copy username"
+                    @click.native.stop.prevent="copyUsername"/>
+                <div class="username" :title="username">
+                  {{ username }}
+                </div>
+                <input ref="usernameInput" class="username-input" type="hidden" :value="username">
+              </div>
+              <div class="row">
+                <p class="bold">Language:</p>
+                {{ language.name }}
+              </div>
+              <div class="row">
+                <p class="bold">Timezone:</p>
+                {{ gmtOffset }}
+              </div>
+            </div>
+          </template>
+        </admin-components-materializedropdown>        
+        <admin-components-materializedropdown
+            tag="li"
             class="nav-link user-link"
             :below-origin="true"
             :items="userDdItems">
           <template>
             <div class="user-circle">
-              <i class="material-icons large">face</i>
+              <i class="material-icons large">person</i>
             </div>
           </template>
           <template slot="header">
@@ -124,14 +162,14 @@
             </div>
           </template>
         </admin-components-materializedropdown>
-        <admin-components-materializedropdown
+        <!-- <admin-components-materializedropdown
             tag="li"
             class="nav-link more-link"
             :below-origin="true"
             :gutter="2"
             :items="moreDdItems">
           <i class="material-icons">more_vert</i>
-        </admin-components-materializedropdown>
+        </admin-components-materializedropdown> -->
       </ul>
     </div>
     <template v-for="child in model.children">
@@ -318,3 +356,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .nav-extended {
+    background-color: #F0F0F0;
+    border-bottom: 0.0625rem solid #E1E1E1;
+    box-shadow: unset;
+  }
+</style>

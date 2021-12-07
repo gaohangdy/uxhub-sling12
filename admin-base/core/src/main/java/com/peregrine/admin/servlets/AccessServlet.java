@@ -89,6 +89,9 @@ public class AccessServlet extends AbstractBaseServlet {
 
     public static final String USER_ID = "userID";
     public static final String AUTH_TYPE = "authType";
+    
+    private static final String TENANT_USER_PATH = "/home/users/tenants";
+    private static final String IS_TENANT = "isTenant";
 
     private List<String> profileIncludeList = new ArrayList<>();
 
@@ -145,6 +148,13 @@ public class AccessServlet extends AbstractBaseServlet {
 
     private void convertResource(JsonResponse json, Resource resource) throws IOException {
 
+        // ----- UXHub Customize -----
+        if (resource.getPath().startsWith(TENANT_USER_PATH)) {
+            json.writeAttribute(IS_TENANT, true);
+        } else {
+            json.writeAttribute(IS_TENANT, false);
+        }
+        
         Iterable<Resource> children = resource.getChildren();
         for(Resource child : children) {
 
