@@ -47,4 +47,6 @@ public interface AdminPaths {
     String RESOURCE_TYPE_IS_TENANT_NAME_AVAILABLE = API_PREFIX + "tenants/name/available";
     String RESOURCE_TYPE_IS_REFERENCED_IN_PUBLISH = API_PREFIX + "isReferencedInPublish";
 
+    String RESOURCE_TYPE_GET_LANGUAGES = API_PREFIX + "listLanguages";
+
 }

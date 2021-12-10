@@ -1368,6 +1368,15 @@ class PerAdminImpl {
   _postFormDataImpl(url, data, config) {
     return postFormData(url, data, config);
   }
+
+  fetchLanguages() {
+    return new Promise((resolve, reject) => {
+      fetch('/admin/listLanguages.json')
+          .then((data) => {
+            resolve(data.languages)
+          })
+    })
+  }  
 }
 
 export default PerAdminImpl

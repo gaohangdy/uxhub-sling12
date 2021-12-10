@@ -3,7 +3,7 @@ import {LoggerFactory, LogLevel} from './logger'
 const log = LoggerFactory.logger('experiences').setLevelDebug()
 
 function experience(model, name, defaultValue) {
-    const experience = 'lang:'+$perAdminApp.getView().state.language
+    const experience = 'lang:'+$perAdminApp.getView().state.language.name
     if(model.experiences) {
         for (let i = 0; i < model.experiences.length; i++) {
             const exp = model.experiences[i]

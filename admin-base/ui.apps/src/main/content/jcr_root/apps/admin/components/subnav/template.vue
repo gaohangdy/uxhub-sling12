@@ -151,3 +151,9 @@ export default {
 }
 </script>
 
+<style>
+    .page-tree a {
+        color: #707070;
+    }
+</style>
+

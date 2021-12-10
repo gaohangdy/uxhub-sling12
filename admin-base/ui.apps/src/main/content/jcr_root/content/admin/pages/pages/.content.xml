@@ -55,11 +55,11 @@
         <addPage jcr:primaryType="nt:unstructured"
           sling:resourceType="admin/components/action"
           target=""
-          type="icon"
+          type=""
           title="add page"
           command="addPage"
           icon="add"
-          classes="addPage">
+          classes="waves-effect waves-light btn blue">
           <experiences jcr:primaryType="nt:unstructured">
             <de jcr:primaryType="nt:unstructured" experiences="[lang:de]" title="Seite hinzufügen"/>
           </experiences>

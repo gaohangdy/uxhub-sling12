@@ -784,9 +784,9 @@ function getExtensionImpl(id) {
 
 function loadi18nImpl() {
   if (!view.state.language) {
-    Vue.set(view.state, 'language', 'en');
+    Vue.set(view.state, 'language', {name: 'en', title: 'English'});
   }
-  api.populateI18N(view.state.language);
+  api.populateI18N(view.state.language.name);
 }
 
 /**

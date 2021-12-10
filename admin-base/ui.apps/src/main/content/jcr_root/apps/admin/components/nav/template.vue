@@ -45,6 +45,7 @@
             :below-origin="true"
             :items="tenantDdItems">
           {{ vTenantTitle }}
+          <i class="material-icons large" style="padding-left: 5px;">expand_more</i>
         </admin-components-materializedropdown>
       </div>
       <div class="nav-center">
@@ -72,7 +73,7 @@
                 :value="language"
                 deselect-label=""
                 track-by="name"
-                label="name"
+                label="title"
                 placeholder="Language"
                 :options="languages"
                 :searchable="false"
@@ -192,6 +193,8 @@ export default {
     return {
       state: $perAdminApp.getView().state,
       tenants: $perAdminApp.getView().admin.tenants || [],
+      // language: {},
+      languages: [],
       sections: [
         {name: 'welcome', title: 'Dashboard', mobile: true},
         {name: 'pages', title: 'Pages'},
@@ -206,12 +209,13 @@ export default {
     hideTenants() {
       return this.model.hideTenants ? true : $perAdminApp.getView().state.tenant ? false : true
     },
-    language() {
-      return {name: $perAdminApp.getView().state.language}
+    language() {  
+      return $perAdminApp.getView().state.language
+      // return {name: $perAdminApp.getView().state.language}
     },
-    languages() {
-      return this.$i18nGetLanguages()
-    },
+    // languages() {
+    //   // return this.$i18nGetLanguages()
+    // },
     vueRoot() {
       return this.$root
     },
@@ -270,6 +274,9 @@ export default {
     $perAdminApp.getApi().populateTenants().then(() => {
       this.refreshTenants()
     })
+    $perAdminApp.getApi().fetchLanguages().then((data) => {
+      this.refreshLanguages(data)
+    }) 
   },
   methods: {
     getSectionModel(section) {
@@ -294,8 +301,8 @@ export default {
         target
       }
     },
-    onSelectLang({name}) {
-      this.$i18nSetLanguage(name)
+    onSelectLang({name, title}) {
+      this.$i18nSetLanguage({name: name, title: title})
       $perAdminApp.forceFullRedraw()
     },
     onSelectTenant(tenant) {
@@ -328,6 +335,14 @@ export default {
     refreshTenants() {
       this.tenants = $perAdminApp.getView().admin.tenants || []
       this.state = $perAdminApp.getView().state
+    },
+    refreshLanguages(data) {
+      this.languages = data
+      // const currentLanguage = this.languages.filter((ch) => {
+      //   return $perAdminApp.getView().state.language.name === ch.name
+      // })  
+      // this.language = currentLanguage[0]  
+
     },
     getActiveSection() {
       const breadcrumbs = $perAdminApp.getView().adminPage.breadcrumbs

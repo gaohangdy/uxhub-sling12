@@ -234,8 +234,8 @@
                 let imgBase64 = null
                 var iframeHtml = this.$refs.iframeOne.contentWindow
                 const iframeBody = iframeHtml.document.getElementsByTagName('body')[0]
-                const iframeScrollY = iframeHtml.document.documentElements.scrollTop
-                const iframeScrollX = iframeHtml.document.documentElements.scrollLeft
+                const iframeScrollY = iframeHtml.document.documentElement.scrollTop
+                const iframeScrollX = iframeHtml.document.documentElement.scrollLeft
                 html2canvas(iframeBody, {
                     allowTaint: true,
                     useCORS: true,
@@ -244,7 +244,7 @@
                     x: iframeScrollX,
                     y: iframeScrollY
                 }).then(canvas => {
-                    imgBase64 = cavas.toDataURL('image/png')
+                    imgBase64 = canvas.toDataURL('image/png')
                     if (imgBase64) {
                         this.thumbnailData = imgBase64
                     } else {

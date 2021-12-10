@@ -199,6 +199,8 @@
                     this.clickCount = 0;
                 }
             }
+
+            this.$emit('actionClicked',e);
         }
     }
 }
@@ -218,5 +220,10 @@
 
     .btn-floating i {
         color: #6d6d6d;
+    }
+
+    .btn {
+        border-radius: 0.25rem;
+        padding: 0 1.5rem;
     }
 </style>

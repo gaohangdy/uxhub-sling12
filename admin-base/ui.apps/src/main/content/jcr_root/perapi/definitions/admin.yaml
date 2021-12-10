@@ -1158,6 +1158,24 @@ paths:
           description: Missing 'name' parameter error
           schema:
             $ref: "#/definitions/Error"
+  '/listLanguages.json':
+    get:
+      description: List all the avilable languages on this peregrine instance
+      responses:
+        200:
+          description: returns the list of languages
+          schema:
+            type: object
+            properties:
+              languages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    title:
+                      type: string        
 definitions:
   Error:
     type: object

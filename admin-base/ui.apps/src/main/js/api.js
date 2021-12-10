@@ -326,6 +326,10 @@ class PerApi {
     _postFormData(url, data, config) {
         return impl._postFormDataImpl(url, data, config);
     }
+
+    fetchLanguages() {
+        return impl.fetchLanguages()
+    }
 }
 
 export default PerApi

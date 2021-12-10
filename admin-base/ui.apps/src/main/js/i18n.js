@@ -36,7 +36,39 @@ function getLang() {
 }
 
 function getLangs() {
-    return [ {name: 'en'}, {name: 'de'} ]
+    // return [ {name: 'en'}, {name: 'de'} ]
+
+    // return new Promise((resolve, reject) => {
+    //     axios.get('/perapi/admin/listLanguages.json')
+    //         .then((response) => {
+    //             resolve(response.data.languages)
+    //         })
+    //   })
+
+    const langs = $perAdminApp.getApi().fetchLanguages()
+    return langs
+    // return new Promise((resolve, reject) => {
+        
+    //   })
+
+    // return [
+    //     {
+    //       "name" : "en",
+    //       "title" : "English"
+    //     },
+    //     {
+    //       "name" : "ja",
+    //       "title" : "日本語"
+    //     },
+    //     {
+    //       "name" : "zh-cn",
+    //       "title" : "简体中文"
+    //     },
+    //     {
+    //       "name" : "de",
+    //       "title" : "Deutsch"
+    //     }
+    //   ]
 }
 
 const i18n = {
@@ -48,5 +80,6 @@ const i18n = {
         vue.prototype.$i18nGetLanguages = getLangs
     }
 }
+
 
 export default i18n

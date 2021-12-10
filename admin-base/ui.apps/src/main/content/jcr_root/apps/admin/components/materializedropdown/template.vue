@@ -152,7 +152,11 @@ export default {
     onItemClick(item, index) {
       if (!item.disabled) {
         if (item.click) {
-          item.click()
+          if (item.target) {
+            item.click(item.target)
+          } else {
+            item.click()
+          }
         } else {
           this.$emit('item-click', item, index)
         }
