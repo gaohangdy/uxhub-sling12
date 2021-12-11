@@ -6,7 +6,7 @@ let lang = 'en'
 function keyToLang(original) {
     try {
         const lowOriginal = original.toLowerCase();
-        const resources = $perAdminApp.getView().admin.i18n[lang]
+        const resources = $perAdminApp.getView().admin.i18n[lang.name]
         if(resources[original]) {
             return resources[original].text
         } else if (resources[lowOriginal]){

@@ -71,7 +71,7 @@
 
           <text1 jcr:primaryType="nt:unstructured"
             sling:resourceType="pagerendervue/components/base"
-            text="&lt;h4&gt;Sites&lt;/h4&gt;&lt;p&gt;&lt;/p&gt;">
+            text="">
           </text1>
 
           <!-- <addSite jcr:primaryType="nt:unstructured"
