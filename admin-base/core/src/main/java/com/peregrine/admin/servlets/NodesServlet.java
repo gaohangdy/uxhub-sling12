@@ -41,6 +41,7 @@ import static com.peregrine.commons.util.PerConstants.JCR_MIME_TYPE;
 import static com.peregrine.commons.util.PerConstants.JCR_PRIMARY_TYPE;
 import static com.peregrine.commons.util.PerConstants.JCR_TITLE;
 import static com.peregrine.commons.util.PerConstants.METAPROPERTIES;
+import static com.peregrine.commons.util.PerConstants.DATASOURCES;
 import static com.peregrine.commons.util.PerConstants.NAME;
 import static com.peregrine.commons.util.PerConstants.PAGE_PRIMARY_TYPE;
 import static com.peregrine.commons.util.PerConstants.PATH;
@@ -233,6 +234,8 @@ public class NodesServlet extends AbstractBaseServlet {
                             json.writeAttribute(COMPONENT, component);
                             convertNamedChild(json, content, TAGS);
                             convertNamedChild(json, content, METAPROPERTIES);
+
+                            convertNamedChild(json, content, DATASOURCES);
                         } else {
                             logger.debug("No Content Child found for: '{}'", child.getPath());
                         }

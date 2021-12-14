@@ -157,6 +157,8 @@ public class PerConstants {
     public static final String INTERNAL = "internal";
     public static final String DOMAINS = "domains";
 
+    public static final String DATASOURCE = "datasource";
+
     public static final String EXCLUDE_FROM_SITEMAP = "excludeFromSitemap";
     public static final String EXCLUDE_TREE_FROM_SITEMAP = "excludeTreeFromSitemap";
     public static final String CHANGE_FREQUENCY = "changefreq";
@@ -183,6 +185,8 @@ public class PerConstants {
     public static final String TENANT_ROOT_PATH_TEMPLATE = "/content/{TENANT}";
     public static final String TENANT_VAR_PATH_TEMPLATE = "/content/{TENANT}/var";
     public static final Pattern TENANT_PATH_PATTERN = Pattern.compile("^/content/([a-z0-9_]+)/?.*$");
+
+    public static final String DATASOURCES = "datasources";
 
 }
 

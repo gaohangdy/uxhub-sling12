@@ -6,6 +6,8 @@ public class AdminConstants {
     // Component Paths use for Admin Models
     public static final String TAG_OBJECT_PATH = "admin/objects/tag";
 
+    public static final String DATASOURCE_OBJECT_PATH = "admin/objects/datasource";
+
     public static final String ACTION_COMPONENT_PATH = "admin/components/action";
     public static final String COL_COMPONENT_PATH = "admin/components/col";
     public static final String CONTENT_EXPLORER_COMPONENT_PATH = "admin/components/componentexplorer";

@@ -675,7 +675,7 @@ export default {
       return item.name !== 'jcr:content'
     },
     isFile(item) {
-      return ['per:Asset', 'nt:file'].indexOf(item.resourceType) >= 0
+      return ['per:Asset', 'nt:file', 'per:Object'].indexOf(item.resourceType) >= 0
     },
     isFileAllowed() {
       return this.browserType !== PathBrowser.Type.PAGE

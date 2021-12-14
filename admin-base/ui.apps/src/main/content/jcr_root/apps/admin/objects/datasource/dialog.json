@@ -1,0 +1,65 @@
+{ "fields":[
+  {
+    "type": "input",
+    "inputType": "text",
+    "model": "title",
+    "x-model": "jcr:title",
+    "label": "Title",
+    "placeholder": "datasource title",
+    "required": true,
+    "validator": "required"    
+  },
+  {
+    "type": "input",
+    "inputType": "text",
+    "placeholder": "endpointurl",
+    "label": "URL to load data",
+    "model": "endpointurl",
+    "x_form_group": "content",
+    "required": true,
+    "validator": "required"          
+  },  
+  {
+    "type": "material-textarea",
+    "inputType": "text",
+    "model": "description",
+    "label": "Description",
+    "rows": 10,
+    "placeholder": "enter a description for this page"
+  },
+  {
+    "type": "collection",
+    "multifield": true,
+    "fieldLabel": [
+      "property",
+      "value"
+    ],
+    "fields": [
+      {
+        "type": "input",
+        "inputType": "text",
+        "placeholder": "",
+        "label": "Column Name",
+        "model": "columnName"
+      },        
+      {
+        "type": "material-select",
+        "label": "DataType",
+        "model": "datatype",
+        "selectOptions": {
+          "name": "name",
+          "value": "value"
+        },
+        "values": [
+          {"name": "text", "value": "text" },
+          {"name": "number", "value": "number" },
+          {"name": "date", "value": "date" }
+        ],
+        "required": true,
+        "validator": "required"
+      }
+    ],
+    "label": "Columns",
+    "model": "columns"
+  }
+]}

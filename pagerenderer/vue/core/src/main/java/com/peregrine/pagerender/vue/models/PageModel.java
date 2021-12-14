@@ -450,6 +450,19 @@ public class PageModel extends Container {
         return metaRobots.toString();
     }
 
+    /** ----- UXHub Customized ----- */
+    public List<Datasource> getDatasources() {
+        Resource datasources = getResource().getChild(PerConstants.DATASOURCES);
+        List<Datasource> answer = new ArrayList<>();
+        if(datasources != null) {
+            for(Resource metaproperty : datasources.getChildren()) {
+                Datasource metaProperty = new Datasource(metaproperty);
+                answer.add(metaProperty);
+            }
+        }
+        return answer;
+    }    
+
     class Tag {
         private String path;
         private String name;
@@ -493,5 +506,13 @@ public class PageModel extends Container {
         public String getValue() { return value; }
         public Boolean isProperty() { return "property".equalsIgnoreCase(metatype); }
         public Boolean isName() { return "name".equalsIgnoreCase(metatype); }
+    }
+
+    public class Datasource {
+        public String datasource;
+        public Datasource(Resource r) {
+            this.datasource = r.getValueMap().get("datasource", String.class);
+        }
+        public String getDatasource() { return datasource; }
     }
 }
