@@ -353,17 +353,24 @@ class PerAdminImpl {
                     if (from) {
                       data.model.groups[j].fields[i].values = []
                       let promise = axios.get(from).then((response) => {
-                        for (var key in response.data) {
-                          if (response.data[key]['jcr:title']) {
-                            const nodeName = key
-                            const val = from.replace('.infinity.json',
-                                '/' + nodeName)
-                            let name = response.data[key].name
-                            if (!name) {
-                              name = response.data[key]['jcr:title']
-                            }
+                        if (response.data instanceof Array) {
+                          for (let idxAry = 0; idxAry < response.data.length; idxAry++) {
                             data.model.groups[j].fields[i].values.push(
-                                {value: val, name: name})
+                              {value: response.data[idxAry].value, name: response.data[idxAry].name})                            
+                          }
+                        } else {
+                          for (var key in response.data) {
+                            if (response.data[key]['jcr:title']) {
+                              const nodeName = key
+                              const val = from.replace('.infinity.json',
+                                  '/' + nodeName)
+                              let name = response.data[key].name
+                              if (!name) {
+                                name = response.data[key]['jcr:title']
+                              }
+                              data.model.groups[j].fields[i].values.push(
+                                  {value: val, name: name})
+                            }
                           }
                         }
                       }).catch((error) => {

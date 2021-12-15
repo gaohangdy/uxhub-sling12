@@ -1175,7 +1175,31 @@ paths:
                     name:
                       type: string
                     title:
-                      type: string        
+                      type: string      
+  '/pageDatasourceList.json{path}':
+    get:
+      description: List selected datasources from page
+      parameters:
+        - name: path
+          type: string
+          in: path
+          description: the path of the page
+          required: true
+      responses:
+        200:
+          description: returns the datasources of page
+          schema:
+            type: object
+            properties:
+              languages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    title:
+                      type: string                  
 definitions:
   Error:
     type: object

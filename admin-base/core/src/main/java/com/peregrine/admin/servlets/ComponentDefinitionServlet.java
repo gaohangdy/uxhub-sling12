@@ -26,6 +26,7 @@ package com.peregrine.admin.servlets;
  */
 
 import static com.peregrine.admin.servlets.AdminPaths.RESOURCE_TYPE_COMPONENT_DEFINITION;
+import com.peregrine.admin.util.AdminUtil;
 import static com.peregrine.commons.util.PerConstants.APPS_ROOT;
 import static com.peregrine.commons.util.PerConstants.CONF_ROOT;
 import static com.peregrine.commons.util.PerConstants.DIALOG_JSON;
@@ -117,7 +118,10 @@ public class ComponentDefinitionServlet extends AbstractBaseServlet {
         answer.writeAttribute(PATH, componentResource.getPath());
         answer.writeAttribute(NAME, ServletHelper.componentPathToName(componentResource.getPath()));
         if (dialog != null) {
-            answer.writeAttributeRaw(MODEL, rewriteDialogToTenant(path, dialog));
+//            answer.writeAttributeRaw(MODEL, rewriteDialogToTenant(path, dialog));
+            String dialogContent = rewriteDialogToTenant(path, dialog);
+            dialogContent = rewriteParameterPage(dialogContent, resource);
+            answer.writeAttributeRaw(MODEL, dialogContent);
         }
         if (ogTags != null) {
             answer.writeAttributeRaw(OG_TAGS, rewriteDialogToTenant(path, ogTags));
@@ -135,6 +139,14 @@ public class ComponentDefinitionServlet extends AbstractBaseServlet {
         } else {
             return answer;
         }
+    }
+    
+    private String rewriteParameterPage(String dialogContent, Resource resource) {
+        Resource pageResource = AdminUtil.getPageResource(resource);
+        if (pageResource != null) {
+            return dialogContent.replaceAll("\\$\\{page\\}", pageResource.getPath());
+        }
+        return dialogContent;
     }
 
     private Resource getDialogFromSuperType(Resource resource, boolean page, boolean isMetaTag) {
