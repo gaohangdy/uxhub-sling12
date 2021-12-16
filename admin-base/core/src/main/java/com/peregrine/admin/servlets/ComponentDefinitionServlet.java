@@ -121,6 +121,7 @@ public class ComponentDefinitionServlet extends AbstractBaseServlet {
 //            answer.writeAttributeRaw(MODEL, rewriteDialogToTenant(path, dialog));
             String dialogContent = rewriteDialogToTenant(path, dialog);
             dialogContent = rewriteParameterPage(dialogContent, resource);
+            dialogContent = rewriteComponentDatasource(dialogContent, resource);
             answer.writeAttributeRaw(MODEL, dialogContent);
         }
         if (ogTags != null) {
@@ -145,6 +146,13 @@ public class ComponentDefinitionServlet extends AbstractBaseServlet {
         Resource pageResource = AdminUtil.getPageResource(resource);
         if (pageResource != null) {
             return dialogContent.replaceAll("\\$\\{page\\}", pageResource.getPath());
+        }
+        return dialogContent;
+    }
+    
+    private String rewriteComponentDatasource(String dialogContent, Resource resource) {
+        if (resource.getValueMap().get("source", String.class) != null) {
+            return dialogContent.replaceAll("\\$\\{datasource\\}", resource.getValueMap().get("source", String.class));
         }
         return dialogContent;
     }
