@@ -32,7 +32,8 @@
             ref="vfg"
             :schema="schema"
             :model="dataModel"
-            :options="formOptions"/>
+            :options="formOptions"
+            @model-updated="onModelUpdated"/>
       </template>
     </div>
     <div class="editor-panel-buttons">
@@ -328,6 +329,19 @@ export default {
         group.querySelector('legend').click()
       }
     },
+    onModelUpdated(newVal, schema) {
+      console.log(newVal, schema);
+      let targetSchema = this.schema;
+      if(schema == 'source') {
+        const from = '/perapi/admin/datasourceColumns.json' + newVal
+        axios.get(from).then(function (response) {
+          for (var i = 0; i < response.data.length; i++) {
+            targetSchema.groups[1].fields[0].values.push(
+              {value: response.data[i].value, name: response.data[i].name});                            
+          }              
+        })
+      }      
+    }
   }
 //      ,
 //      beforeMount: function() {
