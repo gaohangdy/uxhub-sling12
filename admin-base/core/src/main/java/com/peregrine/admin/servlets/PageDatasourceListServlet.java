@@ -77,7 +77,7 @@ public class PageDatasourceListServlet extends SlingSafeMethodsServlet {
             for (Resource res : datasourceRs.getChildren()) {
                 String datasourcePath = res.getValueMap().get("datasource", String.class);
                 Resource dsResource = request.getResourceResolver().resolve(datasourcePath);
-                String title = dsResource.getValueMap().get("title", String.class);
+                String title = dsResource.getValueMap().get("name", String.class);
                 datasourceList.add(new Datasource(datasourcePath, title));
 
             }

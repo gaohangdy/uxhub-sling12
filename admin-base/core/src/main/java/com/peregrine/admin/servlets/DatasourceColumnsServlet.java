@@ -72,7 +72,7 @@ public class DatasourceColumnsServlet extends SlingSafeMethodsServlet {
             for (Resource res : resource.getChildren()) {
                 String columnName = res.getValueMap().get("columnName", String.class) != null ? res.getValueMap().get("columnName", String.class) : res.getName();
                 String title = columnName + " - " + res.getValueMap().get("datatype", String.class);
-                datasourceList.add(new Datasource(columnName, title));
+                datasourceList.add(new Datasource(title, title));
 
             }
                    
