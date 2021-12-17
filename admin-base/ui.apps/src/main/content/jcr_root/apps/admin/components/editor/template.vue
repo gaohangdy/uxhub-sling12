@@ -330,15 +330,25 @@ export default {
       }
     },
     onModelUpdated(newVal, schema) {
-      console.log(newVal, schema);
+      // console.log(newVal, schema);
+      const modelNames = ['xAxis', 'yAxis', 'dimension', 'measure', 'radius', 'yAxis1', 'yAxis2', 'lng', 'lat']
       let targetSchema = this.schema;
       if(schema == 'source') {
         const from = '/perapi/admin/datasourceColumns.json' + newVal
         axios.get(from).then(function (response) {
-          for (var i = 0; i < response.data.length; i++) {
-            targetSchema.groups[1].fields[0].values.push(
-              {value: response.data[i].value, name: response.data[i].name});                            
-          }              
+          targetSchema.groups.forEach((group)=> {
+            group.fields.forEach((field)=> {
+              if (modelNames.includes(field.model)) {
+                field.values.splice(0, field.values.length)
+                field.values.push(response.data)
+              }
+            })
+          })
+          // for (var i = 0; i < response.data.length; i++) {
+          //   console.log(targetSchema)
+          //   targetSchema.groups[1].fields[0].values.push(
+          //     {value: response.data[i].value, name: response.data[i].name});                            
+          // }              
         })
       }      
     }
