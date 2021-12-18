@@ -340,7 +340,7 @@ export default {
             group.fields.forEach((field)=> {
               if (modelNames.includes(field.model)) {
                 field.values.splice(0, field.values.length)
-                console.log(response.data)
+                // console.log(response.data)
                 field.values.push(response.data)
               }
             })
